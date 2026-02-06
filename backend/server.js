@@ -3,7 +3,7 @@ import cors from "cors"
 import mongoose from "mongoose"
 import { emp } from "./models/empSchema.js"
 
-let conn = mongoose.connect("mongodb://localhost:27017/Employee")
+let conn = mongoose.connect(process.env.MONGO_URL)
 conn.then(()=> console.log("Mongodb Connected Successfully")).catch(err => console.log(err))
 const app = express()
 const port = process.env.PORT || 5000
@@ -24,4 +24,5 @@ app.post('/employee', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
+
 
