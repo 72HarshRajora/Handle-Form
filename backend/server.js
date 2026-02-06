@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/', async (req, res) => {
+app.post('/employee', async (req, res) => {
     const data = new emp(req.body);
     await data.save();
   res.send('Data saved successfully!')
@@ -24,3 +24,4 @@ app.post('/', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
+
