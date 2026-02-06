@@ -8,8 +8,14 @@ conn.then(()=> console.log("Mongodb Connected Successfully")).catch(err => conso
 const app = express()
 const port = process.env.PORT || 5000
 
-app.use(cors())
+app.use(cors({
+  origin: "https://72harshrajora.github.io",
+  methods: ["GET", "POST"],
+  credentials: true
+}))
 app.use(express.json())
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -24,5 +30,6 @@ app.post('/employee', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
+
 
 
