@@ -8,13 +8,24 @@ conn.then(()=> console.log("Mongodb Connected Successfully")).catch(err => conso
 const app = express()
 const port = process.env.PORT || 5000
 
+const allowedOrigins = [
+  "https://72harshrajora.in",
+  "https://www.72harshrajora.in"
+];
+
 app.use(cors({
-  origin: "https://72harshrajora.github.io",
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Postman / server requests
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST"],
   credentials: true
-}))
+}));
 app.use(express.json())
-
 
 
 app.get('/', (req, res) => {
@@ -30,6 +41,7 @@ app.post('/employee', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
+
 
 
 
